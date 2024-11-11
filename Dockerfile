@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:runtime
+FROM registry-internal.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:runtime
 ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
