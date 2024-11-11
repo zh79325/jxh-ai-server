@@ -5,7 +5,6 @@ WORKDIR /app
 #RUN pip install --no-cache-dir -r requirements.txt
 COPY jxhaiservice/ .
 RUN ls -l
-RUN ls -l jxh-ai-service/jxh_ai
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 #ADD docker-entrypoint.sh /docker-entrypoint.sh
