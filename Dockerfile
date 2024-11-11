@@ -1,10 +1,15 @@
 FROM registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:runtime
+ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
 #RUN pip install --no-cache-dir -r requirements.txt
 COPY jxh-ai-service/ .
+RUN ls -l
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod a+x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
 #RUN  cat /app/deploy
 #DOCKER_BUILDKIT=0 docker build .
 #docker-compose build
