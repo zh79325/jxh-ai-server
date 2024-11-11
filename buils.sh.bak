@@ -1,1 +1,4 @@
-DOCKER_BUILDKIT=0 docker build .
+#DOCKER_BUILDKIT=0 docker build .
+docker pull registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:latest
+docker run -p 8010:8000 registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:latest
+
