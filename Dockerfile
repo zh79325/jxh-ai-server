@@ -5,7 +5,7 @@ WORKDIR /app
 #RUN pip install --no-cache-dir -r requirements.txt
 COPY jxhaiserver/ /app/
 RUN ls -l
-EXPOSE 8000
+EXPOSE 8010
 CMD ["python", "manage.py", "runserver", "8010"]
 #ADD docker-entrypoint.sh /docker-entrypoint.sh
 #RUN chmod a+x /docker-entrypoint.sh
