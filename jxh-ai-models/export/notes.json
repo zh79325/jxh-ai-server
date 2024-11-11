@@ -1,0 +1,21 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "\u542c\u88c5"
+    },
+    {
+      "id": 1,
+      "name": "\u74f6\u88c5"
+    },
+    {
+      "id": 2,
+      "name": "\u76d2\u88c5\u9152"
+    }
+  ],
+  "info": {
+    "year": 2024,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

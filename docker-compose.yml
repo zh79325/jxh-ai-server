@@ -1,0 +1,5 @@
+version: '2'
+services:
+  man:
+    build: .
+    image: jxh-ai:v2
