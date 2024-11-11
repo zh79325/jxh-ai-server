@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from . import jxh_models
 import requests
 import tempfile
-
+import json
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -48,7 +48,7 @@ def detect_all(request):
         product_results = jxh_models.product_detector(img)
         fp.close()
         resp = {
-            'qr': qr_results[0].tojson(),
-            'product': product_results[0].tojson(),
+            'qr': json.loads(qr_results[0].to_json()),
+            'product': json.loads(product_results[0].to_json()),
         }
         return JsonResponse(resp, safe=False)
