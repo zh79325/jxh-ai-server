@@ -3,8 +3,7 @@ ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
 #RUN pip install --no-cache-dir -r requirements.txt
-COPY jxh-ai-service/ jxh-ai-service
-COPY manage.py manage.py
+COPY jxhaiservice/ .
 RUN ls -l
 RUN ls -l jxh-ai-service/jxh_ai
 EXPOSE 8000
