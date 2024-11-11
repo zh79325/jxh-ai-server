@@ -2,7 +2,8 @@
 
 # 本地构建调试
 ```angular2html
-DOCKER_BUILDKIT=0 docker build .
+DOCKER_BUILDKIT=0 docker build .  --tag jxh_local:latest
+docker run --name jxh_local -p 8000:8000 jxh_local:latest
 ```
 
 # 启动

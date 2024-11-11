@@ -3,7 +3,7 @@ ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
 #RUN pip install --no-cache-dir -r requirements.txt
-COPY jxhaiserver/ .
+COPY jxhaiserver/ /app/
 RUN ls -l
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
