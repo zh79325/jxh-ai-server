@@ -3,13 +3,14 @@ ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
 #RUN pip install --no-cache-dir -r requirements.txt
-COPY jxh-ai-service/ .
+COPY jxh-ai-service/ jxh-ai-service
+COPY manage.py manage.py
 RUN ls -l
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-ADD docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod a+x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
+#ADD docker-entrypoint.sh /docker-entrypoint.sh
+#RUN chmod a+x /docker-entrypoint.sh
+#ENTRYPOINT ["/docker-entrypoint.sh"]
 #RUN  cat /app/deploy
 #DOCKER_BUILDKIT=0 docker build .
 #docker-compose build
