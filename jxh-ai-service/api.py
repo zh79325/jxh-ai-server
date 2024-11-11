@@ -52,3 +52,6 @@ def detect_all(request):
             'product': json.loads(product_results[0].to_json()),
         }
         return JsonResponse(resp, safe=False)
+
+def info(request):
+    return JsonResponse(jxh_models.jxh_model_info, safe=False)
