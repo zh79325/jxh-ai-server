@@ -23,4 +23,5 @@ urlpatterns = [
     path("", api.index, name="index"),
     path("qr_detect", api.qr_detect, name="qr_detect"),
     path("product_detect", api.product_detect, name="product_detect"),
+    path("detect_all", api.detect_all, name="detect_all"),
 ]
