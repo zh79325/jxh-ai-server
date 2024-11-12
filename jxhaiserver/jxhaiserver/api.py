@@ -2,10 +2,12 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from django.http import JsonResponse
-from . import jxh_models
+from . import jxh_models,jxh_cv
 import requests
 import tempfile
 import json
+import cv2
+
 
 def index(request):
     return HttpResponse("Hello, world.")
@@ -46,12 +48,21 @@ def detect_all(request):
         img = fp.name
         qr_results = jxh_models.qr_detector(img)
         product_results = jxh_models.product_detector(img)
+        image = cv2.imread(img)
         fp.close()
         resp = {
             'qr': json.loads(qr_results[0].to_json()),
             'product': json.loads(product_results[0].to_json()),
         }
+        if len(resp['qr']) > 0:
+            for qr in resp['qr']:
+                box = qr['box']
+                qr_crop = image[int(box['y1']):int(box['y2']), int(box['x1']):int(box['x2'])]
+                res, points = jxh_cv.wechat_qr.detectAndDecode(qr_crop)
+                if len(res) > 0:
+                    qr['name'] = res[0]
         return JsonResponse(resp, safe=False)
+
 
 def info(request):
     return JsonResponse(jxh_models.jxh_model_info, safe=False)
