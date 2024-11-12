@@ -6,7 +6,7 @@ WORKDIR /app
 COPY jxhaiserver/ /app/
 RUN ls -l
 EXPOSE 8010
-CMD ["python", "manage.py", "runserver", "8010"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8010"]
 #ADD docker-entrypoint.sh /docker-entrypoint.sh
 #RUN chmod a+x /docker-entrypoint.sh
 #ENTRYPOINT ["/docker-entrypoint.sh"]
