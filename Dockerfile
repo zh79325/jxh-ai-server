@@ -2,7 +2,6 @@ FROM registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:runtime
 ENV BUILDKIT_PROGRESS=plain
 WORKDIR /app
 #COPY requirements.txt .
-RUN pip install opencv-contrib-python
 COPY jxhaiserver/ /app/
 RUN ls -l
 EXPOSE 8010
