@@ -12,5 +12,8 @@ docker pull registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:latest
 docker run -p 8010:8010 registry.cn-hangzhou.aliyuncs.com/ali-build/jxh-ai-server:latest
 ```
 
-python3 -m http.server 80
+# 训练步骤
+## 把导出的文件解压复制到 ls-export 目录
+## 运行 build_model.py
+## 运行 yolo_train.py
 

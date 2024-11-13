@@ -7,7 +7,7 @@ import yaml
 import json
 import urllib
 
-folder = 'export'
+folder = 'ls-export'
 datasets = 'yolo_datasets'
 model_yaml = os.path.abspath(f'{datasets}/data.yaml')
 
