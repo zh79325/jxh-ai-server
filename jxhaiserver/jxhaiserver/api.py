@@ -48,11 +48,13 @@ def detect_all(request):
         img = fp.name
         qr_results = jxh_models.qr_detector(img)
         product_results = jxh_models.product_detector(img)
+        jxh_product_results = jxh_models.jxh_product_detector(img)
         image = cv2.imread(img)
         fp.close()
         resp = {
-            'qr': json.loads(qr_results[0].to_json()),
-            'product': json.loads(product_results[0].to_json()),
+            'qrList': json.loads(qr_results[0].to_json()),
+            'productList': json.loads(product_results[0].to_json()),
+            'jxhProductList': json.loads(jxh_product_results[0].to_json()),
         }
         if len(resp['qr']) > 0:
             for qr in resp['qr']:
