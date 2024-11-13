@@ -56,8 +56,8 @@ def detect_all(request):
             'productList': json.loads(product_results[0].to_json()),
             'jxhProductList': json.loads(jxh_product_results[0].to_json()),
         }
-        if len(resp['qr']) > 0:
-            for qr in resp['qr']:
+        if len(resp['qrList']) > 0:
+            for qr in resp['qrList']:
                 box = qr['box']
                 qr_crop = image[int(box['y1']):int(box['y2']), int(box['x1']):int(box['x2'])]
                 res, points = jxh_cv.wechat_qr.detectAndDecode(qr_crop)
