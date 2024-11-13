@@ -6,9 +6,12 @@ import shutil
 import yaml
 import json
 import urllib
+
 folder = 'export'
 datasets = 'yolo_datasets'
 model_yaml = os.path.abspath(f'{datasets}/data.yaml')
+
+
 def buildDataset():
     # Load exported data
     txts = glob(folder + '/**/*.txt')
@@ -24,8 +27,10 @@ def buildDataset():
     train_size = int(0.8 * len(df))
     train_df = df.iloc[:train_size]
     test_df = df.iloc[train_size:]
-    val_df = test_df.sample(frac=0.5)
+    val_df = test_df.sample(frac=1)
     test_df = test_df.drop(val_df.index)
+    if len(test_df) == 0:
+        test_df = val_df
 
     print('building data set')
     # Create directories
@@ -34,7 +39,7 @@ def buildDataset():
         os.makedirs(f'{datasets}/{split}/labels', exist_ok=True)
 
     # Copy files to respective directories
-    for split, split_df in [('export', train_df), ('test', test_df), ('val', val_df)]:
+    for split, split_df in [('train', train_df), ('test', test_df), ('val', val_df)]:
         for _, row in split_df.iterrows():
             shutil.copy(row['image'], f'{datasets}/{split}/images')
             shutil.copy(row['txt'], f'{datasets}/{split}/labels')
@@ -59,7 +64,8 @@ def buildDataset():
     with open(model_yaml, 'w') as outfile:
         yaml.dump(data, outfile, default_flow_style=False)
 
-    print('finish model_yaml in=>',model_yaml)
+    print('finish model_yaml in=>', model_yaml)
+
 
 if __name__ == '__main__':
     buildDataset()
