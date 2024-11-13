@@ -24,13 +24,20 @@ def buildDataset():
         shutil.rmtree(datasets)
     # Shuffle and split data
     df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+    all_train = len(df) < 20
     train_size = int(0.8 * len(df))
+    if all_train:
+        train_size = len(df)
     train_df = df.iloc[:train_size]
-    test_df = df.iloc[train_size:]
-    val_df = test_df.sample(frac=1)
-    test_df = test_df.drop(val_df.index)
-    if len(test_df) == 0:
-        test_df = val_df
+    test_df = []
+    val_df = []
+    if all_train:
+        test_df = train_df
+        val_df = train_df
+    else:
+        test_df = df.iloc[train_size:]
+        val_df = test_df.sample(frac=0.5)
+        test_df = test_df.drop(val_df.index)
 
     print('building data set')
     # Create directories
