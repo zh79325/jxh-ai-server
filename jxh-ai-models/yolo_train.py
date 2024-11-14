@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-from ultralytics import YOLO
-import shutil
 import os
-from ultralytics.utils.checks import check_font
+import shutil
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import fontManager
-from build_model import datasets, model_yaml
-import matplotlib as mpl
-print("get_cachedir=>", mpl.get_cachedir())
+
+from ultralytics import YOLO
+from build_model import model_yaml
+
+
 mpl_data_path = mpl.get_data_path()
 mpl_fonts_folder = mpl_data_path + '/fonts/ttf'
-mpl_matplotlibrc = mpl_data_path + '/matplotlibrc'
 print("get_data_path=>", mpl.get_data_path())
 if not os.path.exists(mpl_fonts_folder + '/SimHei.ttf'):
     shutil.copyfile(os.path.dirname(os.path.abspath('__file__')) + '/SimHei.ttf', mpl_fonts_folder + '/SimHei.ttf')
