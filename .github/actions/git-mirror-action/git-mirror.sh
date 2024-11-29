@@ -14,7 +14,7 @@ echo "DESTINATION=$DESTINATION_REPO"
 echo "DRY RUN=$DRY_RUN"
 
 git clone --mirror "$SOURCE_REPO" "$SOURCE_DIR" && cd "$SOURCE_DIR"
-git lfs fetch
+git lfs fetch --all
 rm -rf .gitattributes
 git remote set-url --push origin "$DESTINATION_REPO"
 git fetch -p origin
