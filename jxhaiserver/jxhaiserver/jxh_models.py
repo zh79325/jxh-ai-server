@@ -4,7 +4,7 @@ from enum import Enum
 
 from ultralytics import YOLO
 
-JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelPath'])
+JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelCode', 'modelPath'])
 
 
 class JxhProductModels(Enum):
@@ -21,10 +21,14 @@ class JxhProductModels(Enum):
     def model_name(self):
         return self.value.modelName
 
-    qr_code = JxhProductModel('二维码模型', 'jxh_ai/qrdet-s.pt')
-    normal_product = JxhProductModel('通用模型', 'jxh_ai/product.pt')
-    benchmark_product = JxhProductModel('版本1-摄像头', 'jxh_ai/jxh-product.pt')
-    latest_product = JxhProductModel('版本3-新摄像头', 'jxh_ai/jxh-product-latest.pt')
+    @property
+    def model_code(self):
+        return self.value.modelCode
+
+    qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt')
+    normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product.pt')
+    benchmark_product = JxhProductModel('版本1-摄像头', 'benchmark_product', 'jxh_ai/jxh-product.pt')
+    latest_product = JxhProductModel('版本3-新摄像头', 'latest_product', 'jxh_ai/jxh-product-latest.pt')
 
     def buildDetector(self):
         model_file = self.abs_model_path

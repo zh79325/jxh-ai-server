@@ -22,6 +22,7 @@ class TaskAPI(generics.RetrieveUpdateDestroyAPIView):
 def getDetectResult(detector: jxh_models.YoloDetector, img):
     results = detector.detector(img)
     return {
+        'code':  detector.model.model_code,
         'name': detector.model.model_name,
         'results': json.loads(results[0].to_json())
     }
