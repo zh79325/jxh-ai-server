@@ -140,4 +140,5 @@ datasets/
 jxh-ai-models/runs/
 .idea/
 jxh-ai-models/yolo_datasets/
+jxh-ai-models/dataset-download/
 ls-export/
