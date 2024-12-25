@@ -14,7 +14,7 @@ from ultralytics.utils.downloads import download
 
 # bentchmark https://aiimg.obs.cn-east-3.myhuaweicloud.com/train/dataset/project-4-at-2024-11-13-00-59-ce04fdff.zip
 # v2 https://aiimg.obs.cn-east-3.myhuaweicloud.com:443/train%2FAI%E5%95%86%E5%93%81%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E4%BC%81%E4%B8%9A%2Fjxh%2F20241128204154_Raw_82387.zip
-dataset_url='https://aiimg.obs.cn-east-3.myhuaweicloud.com/labelstudio%2FAI%E5%95%86%E5%93%81%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E4%BC%81%E4%B8%9A%2Fexport%2FYOLO%2F20241220173658_Raw_10342.zip'
+dataset_url='https://aiimg.obs.cn-east-3.myhuaweicloud.com/labelstudio%2FAI%E5%95%86%E5%93%81%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E4%BC%81%E4%B8%9A%2Fexport%2FYOLO%2F20241225144442_Raw_71578.zip'
 current = os.path.dirname(os.path.abspath('__file__'))
 root = current
 datasset_folder=Path(root+'/ls-export')
@@ -109,7 +109,7 @@ def startTrain():
     print('load init_model from =>',init_model)
     print('load model_yaml from =>',model_yaml)
     model = YOLO(init_model)  # build a new model from YAML
-    results = model.train(data=model_yaml,batch=8, epochs=100, imgsz=1440)
+    results = model.train(data=model_yaml,batch=1, epochs=100, imgsz=1440)
     pass
 
 
