@@ -15,7 +15,7 @@ current = os.path.dirname(os.path.abspath('__file__'))
 dir = Path(current+'/sku110k')  # dataset root dir
 parent = Path(dir.parent)  # download dir
 model_yaml = os.path.abspath(f'{current}/sku110k.yaml')
-def download():
+def download2():
     urls = ['http://trax-geometry.s3.amazonaws.com/cvpr_challenge/SKU110K_fixed.tar.gz']
     download(urls, dir=parent)
     # Rename directories
@@ -37,7 +37,7 @@ def download():
                 for r in x[images == im]:
                     w, h = r[6], r[7]  # image width, height
                     xywh = xyxy2xywh(np.array([[r[1] / w, r[2] / h, r[3] / w, r[4] / h]]))[0]  # instance
-                    f.write(f"{cls} {xywh[0]:.5f} {xywh[1]:.5f} {xywh[2]:.5f} {xywh[3]:.5f}\n")  # write label
+                    f.write(f"{cls} {xywh[0]:.5f} {xywh[1]:.5f} {xywh[0]+xywh[2]:.5f} {xywh[1]:.5f} {xywh[0]+xywh[2]:.5f} {xywh[1]+xywh[3]:.5f} {xywh[0]:.5f} {xywh[1]+xywh[3]:.5f}\n")  # write label
 
 def startTrain():
     labelList = ['object']
@@ -51,7 +51,7 @@ def startTrain():
     )
     with open(model_yaml, 'w') as outfile:
         yaml.dump(data, outfile, default_flow_style=False)
-    pt = os.path.abspath('models/input/yolo11n.pt')
+    pt = os.path.abspath('models/input/yolo11l-obb.pt')
     print('pt file', pt)
     model = YOLO(pt)  # build a new model from YAML
     print('sku110k file', model_yaml)
