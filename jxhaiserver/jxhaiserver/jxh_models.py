@@ -4,7 +4,7 @@ from enum import Enum
 
 from ultralytics import YOLO
 
-JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelCode', 'modelPath'])
+JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelCode', 'modelPath','obb'])
 
 
 class JxhProductModels(Enum):
@@ -22,13 +22,18 @@ class JxhProductModels(Enum):
         return self.value.modelName
 
     @property
+    def obb(self):
+        return self.value.obb
+
+    @property
     def model_code(self):
         return self.value.modelCode
 
-    qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt')
-    normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product.pt')
-    benchmark_product = JxhProductModel('版本1-摄像头', 'benchmark_product', 'jxh_ai/jxh-product.pt')
-    latest_product = JxhProductModel('版本3-新摄像头', 'latest_product', 'jxh_ai/jxh-product-latest.pt')
+    qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt',False)
+    normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product-obb-best.pt',True)
+    #normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product.pt',False)
+    benchmark_product = JxhProductModel('版本1-摄像头', 'benchmark_product', 'jxh_ai/jxh-product-latest.pt',False)
+    latest_product = JxhProductModel('版本3-新摄像头', 'latest_product', 'jxh_ai/jxh-product-obb-latest.pt',True)
 
     def buildDetector(self):
         model_file = self.abs_model_path

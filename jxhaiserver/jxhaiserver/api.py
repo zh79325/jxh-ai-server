@@ -24,6 +24,7 @@ def getDetectResult(detector: jxh_models.YoloDetector, img):
     return {
         'code':  detector.model.model_code,
         'name': detector.model.model_name,
+        'obb': detector.model.obb,
         'results': json.loads(results[0].to_json())
     }
 
@@ -43,7 +44,7 @@ def detect_all(request):
         fp.close()
         resp = {
             'qrResult': qr_result,
-            'productResults': productList,
+            'modelResults': productList,
         }
         height, width, channels = image.shape
         if len(qr_result['results']) > 0:
