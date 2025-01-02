@@ -30,6 +30,7 @@ sh deploy.sh start
 ## 把导出的文件解压复制到 ls-export 目录
 ## 运行 build_model.py
 ## 运行 yolo_train.py
+## obb需要运行300次
 
 ### 模型性能对比
 | Model   | size(pixels) | mAPval50-95 | SpeedCPU ONNX(ms) | SpeedT4 TensorRT10(ms) | params(M) | FLOPs(B) |
