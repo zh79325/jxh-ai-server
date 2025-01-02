@@ -32,8 +32,8 @@ class JxhProductModels(Enum):
     qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt',False)
     normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product-obb-best.pt',True)
     #normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product.pt',False)
-    benchmark_product = JxhProductModel('版本1-摄像头', 'benchmark_product', 'jxh_ai/jxh-product-nobb-latest.pt',False)
-    latest_product = JxhProductModel('版本3-新摄像头', 'latest_product', 'jxh_ai/jxh-product-obb-latest.pt',True)
+    benchmark_product = JxhProductModel('版本1-普通', 'benchmark_product', 'jxh_ai/jxh-product-nobb-latest.pt',False)
+    latest_product = JxhProductModel('版本3-带旋转', 'latest_product', 'jxh_ai/jxh-product-obb-best.pt',True)
 
     def buildDetector(self):
         model_file = self.abs_model_path
