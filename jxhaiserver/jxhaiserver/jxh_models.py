@@ -4,7 +4,7 @@ from enum import Enum
 
 from ultralytics import YOLO
 
-JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelCode', 'modelPath','obb'])
+JxhProductModel = namedtuple('JxhProductModel', ['modelName', 'modelCode', 'modelPath', 'type'])
 
 
 class JxhProductModels(Enum):
@@ -22,18 +22,18 @@ class JxhProductModels(Enum):
         return self.value.modelName
 
     @property
-    def obb(self):
-        return self.value.obb
+    def type(self):
+        return self.value.type
 
     @property
     def model_code(self):
         return self.value.modelCode
 
-    qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt',False)
-    normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product-obb-best.pt',True)
-    #normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product.pt',False)
-    benchmark_product = JxhProductModel('版本1-普通', 'benchmark_product', 'jxh_ai/jxh-product-nobb-latest.pt',False)
-    latest_product = JxhProductModel('版本3-带旋转', 'latest_product', 'jxh_ai/jxh-product-obb-best.pt',True)
+    qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt', 'box')
+    normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product-obb-best.pt', 'obb')
+    benchmark_product = JxhProductModel('版本1-普通', 'benchmark_product', 'jxh_ai/jxh-product-nobb-latest.pt', 'box')
+    latest_product = JxhProductModel('版本3-带旋转', 'latest_product', 'jxh_ai/jxh-product-obb-best.pt', 'obb')
+    shelve = JxhProductModel('货架分割', 'shelve_seg', 'jxh_ai/shelve-seg.pt', 'seg')
 
     def buildDetector(self):
         model_file = self.abs_model_path
@@ -51,6 +51,10 @@ productModels = []
 for name, model in JxhProductModels.__members__.items():
     if model == JxhProductModels.qr_code:
         continue
+    if model == JxhProductModels.shelve:
+        continue
     productModels.append(YoloDetector(model))
 
 qr_detector = YoloDetector(JxhProductModels.qr_code)
+
+shelve_detector = YoloDetector(JxhProductModels.shelve)

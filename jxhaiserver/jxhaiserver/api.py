@@ -24,7 +24,7 @@ def getDetectResult(detector: jxh_models.YoloDetector, img):
     return {
         'code':  detector.model.model_code,
         'name': detector.model.model_name,
-        'obb': detector.model.obb,
+        'type': detector.model.type,
         'results': json.loads(results[0].to_json())
     }
 
@@ -36,6 +36,7 @@ def detect_all(request):
         fp.write(img_data)
         img = fp.name
         qr_result = getDetectResult(jxh_models.qr_detector, img)
+        shelve_result = getDetectResult(jxh_models.shelve_detector, img)
         productList = []
         for productModel in jxh_models.productModels:
             results = getDetectResult(productModel, img)
@@ -44,6 +45,7 @@ def detect_all(request):
         fp.close()
         resp = {
             'qrResult': qr_result,
+            'shelveResult': shelve_result,
             'modelResults': productList,
         }
         height, width, channels = image.shape
