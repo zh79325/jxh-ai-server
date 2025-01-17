@@ -116,6 +116,7 @@ function deploy {
 
     log "Starting containter"
     docker run \
+        --restart=unless-stopped \
         --detach \
         --publish ${SERVER_PORT}:${SERVER_PORT} \
         --name ${container_name} \
