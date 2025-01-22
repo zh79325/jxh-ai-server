@@ -31,8 +31,8 @@ class JxhProductModels(Enum):
 
     qr_code = JxhProductModel('二维码模型', 'qr_code', 'jxh_ai/qrdet-s.pt', 'box')
     normal_product = JxhProductModel('通用模型', 'normal_product', 'jxh_ai/product-obb-best.pt', 'obb')
-    benchmark_product = JxhProductModel('版本1-普通', 'benchmark_product', 'jxh_ai/jxh-product-nobb-latest.pt', 'box')
-    latest_product = JxhProductModel('版本3-带旋转', 'latest_product', 'jxh_ai/jxh-product-obb-best.pt', 'obb')
+    benchmark_product = JxhProductModel('标杆模型', 'benchmark_product', 'jxh_ai/jxh-product-obb-best.pt', 'obb')
+    # latest_product = JxhProductModel('版本3-带旋转', 'latest_product', 'jxh_ai/jxh-product-obb-best.pt', 'obb')
     shelve = JxhProductModel('货架分割', 'shelve_seg', 'jxh_ai/shelve-seg.pt', 'seg')
 
     def buildDetector(self):

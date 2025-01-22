@@ -10,6 +10,8 @@ import tempfile
 import json
 import cv2
 
+from .jxh_models import JxhProductModels, YoloDetector
+
 
 def index(request):
     return HttpResponse("Hello, world.")
@@ -22,7 +24,7 @@ class TaskAPI(generics.RetrieveUpdateDestroyAPIView):
 def getDetectResult(detector: jxh_models.YoloDetector, img):
     results = detector.detector(img)
     return {
-        'code':  detector.model.model_code,
+        'code': detector.model.model_code,
         'name': detector.model.model_name,
         'type': detector.model.type,
         'results': json.loads(results[0].to_json())
@@ -31,22 +33,30 @@ def getDetectResult(detector: jxh_models.YoloDetector, img):
 
 def detect_all(request):
     image_url = request.GET.get('img')
+    models_param = request.GET.get('models')
+    models = []
+    if models_param:
+        models.extend(models_param.split(','))
+    product_models = []
+    for model in jxh_models.productModels:
+        if len(models) == 0 or model.model.model_code in models:
+            product_models.append(model)
     img_data = requests.get(image_url).content
     with tempfile.NamedTemporaryFile(suffix=".jpg") as fp:
         fp.write(img_data)
         img = fp.name
         qr_result = getDetectResult(jxh_models.qr_detector, img)
         shelve_result = getDetectResult(jxh_models.shelve_detector, img)
-        productList = []
-        for productModel in jxh_models.productModels:
+        product_list = []
+        for productModel in product_models:
             results = getDetectResult(productModel, img)
-            productList.append(results)
+            product_list.append(results)
         image = cv2.imread(img)
         fp.close()
         resp = {
             'qrResult': qr_result,
             'shelveResult': shelve_result,
-            'modelResults': productList,
+            'modelResults': product_list,
         }
         height, width, channels = image.shape
         if len(qr_result['results']) > 0:
